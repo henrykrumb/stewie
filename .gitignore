@@ -1,0 +1,7 @@
+.eggs/
+*.pyc
+stewie/__pycache__/
+sources.json
+config.json
+*.log
+env/
