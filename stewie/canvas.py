@@ -61,6 +61,8 @@ class Canvas:
         :param box: tuple of (x, y, width, height)
         """
         x, y, w, h = box
+        UNICODE = True
+        BOX = '\u2588' if UNICODE else '#'
         for by in range(h):
             for bx in range(w):
-                self.draw_char('#', (x + bx, y + by))
+                self.draw_char(BOX, (x + bx, y + by))

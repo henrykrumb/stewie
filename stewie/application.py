@@ -13,19 +13,25 @@ from .widgettree import build_widget_tree
 class Application:
     def __init__(self, widgets: dict):
         self._screen = curses.initscr()
-        self._canvas = Canvas(self._screen)
-        self._frame = Frame((0, 0, curses.COLS, curses.LINES), self)
-        build_widget_tree(self._frame, widgets)
+        try:
+            self._canvas = Canvas(self._screen)
+            self._frame = Frame((0, 0, curses.COLS, curses.LINES), self)
+            build_widget_tree(self._frame, widgets)
+        except Exception:
+            self.exit()
+            exc_info = sys.exc_info()
+            traceback.print_exception(*exc_info)
+            exit()
 
     def run(self):
-        self._frame.pack()
-        curses.noecho()
-        curses.cbreak()
-        curses.curs_set(False)
-        self._screen.keypad(True)
-        quit = False
-        height, width = self._screen.getmaxyx()
         try:
+            self._frame.pack()
+            curses.noecho()
+            curses.cbreak()
+            curses.curs_set(False)
+            self._screen.keypad(True)
+            height, width = self._screen.getmaxyx()
+            quit = False
             while not quit:
                 lines, cols = self._screen.getmaxyx()
                 if width != cols or height != lines:

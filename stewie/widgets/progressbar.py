@@ -2,9 +2,11 @@ from .widget import Widget
 
 
 class ProgressBar(Widget):
-    def __init__(self, parent=None, address=''):
+    _progress = 0
+
+    def __init__(self, progress=0, parent=None, address=''):
         super().__init__(parent, address)
-        self._progress = 0
+        self.progress = progress
 
     @property
     def progress(self):
@@ -21,4 +23,7 @@ class ProgressBar(Widget):
         x, y, w, h = self._box
         # TODO vertical/horizontal option
         # TODO reverse option
-        canvas.draw_box((x, y, w, h))
+        w_fill = int(w * self.progress)
+        canvas.draw_box((x, y, w_fill, h))
+        p = '{}%'.format(int(self.progress * 100))
+        canvas.draw_text(p, (x + int(w / 2), y + int(h / 2)))

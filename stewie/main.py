@@ -45,8 +45,8 @@ def main():
                 'text': 'Bar'
             },
             {
-                'type': 'Button',
-                'text': 'Baz'
+                'type': 'ProgressBar',
+                'progress': 0.15
             }
         ]
     }
