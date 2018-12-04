@@ -6,6 +6,7 @@ import sys
 from .canvas import Canvas
 from .containers import Frame
 from .events import dispatch_events
+from .keyboard import curses_keycode
 from .widgettree import build_widget_tree
 
 
@@ -35,7 +36,7 @@ class Application:
                 self._screen.clear()
                 self._frame.show(self._canvas)
                 c = self._screen.getch()
-                if c == ord('q'):
+                if c == curses_keycode('q'):
                     quit = True
                 self._frame.handle_key(c)
                 dispatch_events()

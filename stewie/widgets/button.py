@@ -14,8 +14,8 @@ class Button(Widget):
             canvas.draw_frame(self._box)
         if self._text:
             textw, texth = strsize(self._text)
-            textx = round((w - textw) / 2)
-            texty = round((h - texth) / 2)
+            textx = int((w - textw) / 2)
+            texty = int((h - texth) / 2)
             canvas.draw_text(self._text, (x + textx, y + texty))
 
     def _handle_key(self, key):

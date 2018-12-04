@@ -15,12 +15,12 @@ class VBox(Container):
         x, y, w, h = self._box
         if not self._children:
             return
-        childheight = h / len(self._children)
+        childheight = int(h / len(self._children))
         for c in range(len(self._children)):
             cx = x
-            cy = round(c * childheight)
+            cy = int(c * childheight)
             cw = w
-            ch = round(childheight)
+            ch = int(childheight)
             self._children[c]._box = (cx, cy, cw, ch)
 
     def _show(self, canvas):
