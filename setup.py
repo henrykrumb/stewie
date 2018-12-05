@@ -23,7 +23,7 @@ setup(
     author='Henry Krumb',
     author_email='henry.krumb@computerwerk.org',
     version=VERSION,
-    url='',
+    url='https://github.com/henrykrumb/stewie',
     description='',
     packages=find_packages(),
     include_package_data=True,
@@ -38,6 +38,8 @@ setup(
         }
     },
     setup_requires=[
-        'flake8'
+        'docutils',
+        'flake8',
+        'sphinx'
     ]
 )

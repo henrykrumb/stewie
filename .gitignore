@@ -1,4 +1,7 @@
 .eggs/
+build/
+dist/
+*.egg-info/
 *.pyc
 stewie/__pycache__/
 sources.json
