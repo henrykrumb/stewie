@@ -10,7 +10,8 @@ def main():
     logger = logging.getLogger('stewie')
     handler = logging.FileHandler('stewie.log')
     logger.addHandler(handler)
-    formatter = logging.Formatter('%(asctime)s %(name)s [%(levelname)s] %(message)s')
+    logfmt = '%(asctime)s %(name)s [%(levelname)s] %(message)s'
+    formatter = logging.Formatter(logfmt)
     handler.setFormatter(formatter)
 
     config = {}

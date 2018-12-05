@@ -29,4 +29,3 @@ def strsize(string):
         if len(line) > width:
             width = len(line)
     return width, height
-

@@ -37,8 +37,8 @@ def build_widget_tree(parent: Container, widgets: dict):
     root = widgets
     try:
         roottype = root['type']
-    except:
+    except Exception:
         raise RuntimeError('root widget type has to be defined')
-    rootwidget = name2widget.get(root['type'])()
+    rootwidget = name2widget.get(roottype)()
     _walk_children(root, rootwidget)
     parent.add_child(rootwidget)

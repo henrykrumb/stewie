@@ -1,6 +1,7 @@
 import curses
 
 import traceback
+import signal
 import sys
 
 from .canvas import Canvas
@@ -12,6 +13,9 @@ from .widgettree import build_widget_tree
 
 class Application:
     def __init__(self, widgets: dict):
+        signal.signal(signal.SIGINT, self._exit_signal_handler)
+        signal.signal(signal.SIGTERM, self._exit_signal_handler)
+
         self._screen = curses.initscr()
         try:
             self._canvas = Canvas(self._screen)
@@ -23,7 +27,11 @@ class Application:
             traceback.print_exception(*exc_info)
             exit()
 
-    def run(self):
+    def _exit_signal_handler(self, signum, frame):
+        self.exit()
+        exit()
+
+    def run(self, thread=None):
         try:
             self._frame.pack()
             curses.noecho()
@@ -33,6 +41,8 @@ class Application:
             height, width = self._screen.getmaxyx()
             quit = False
             while not quit:
+                if thread and thread.is_stop_requested():
+                    quit = True
                 lines, cols = self._screen.getmaxyx()
                 if width != cols or height != lines:
                     width = cols
