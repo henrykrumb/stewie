@@ -49,7 +49,7 @@ class Application:
                     height = lines
                     self._frame._box = (0, 0, cols, lines)
                     self._frame.pack()
-                self._screen.clear()
+                self._screen.erase()
                 self._frame.show(self._canvas)
                 c = self._screen.getch()
                 if c == curses_keycode('q'):
