@@ -23,14 +23,21 @@ class ListBox(Container):
 
     def _pack(self):
         x, y, w, h = self._box
+        start = self._scroll
+        end = start + self._visible_entries
+        if end > len(self._children):
+            end = len(self._children)
         if not self._children:
             return
-        childheight = h / len(self._children)
-        for c in range(len(self._children)):
+        childheight = h / self._visible_entries
+        for child in self._children:
+            child._visible = False
+        for c in range(start, end):
             cx = x
-            cy = round(c * childheight)
+            cy = round((c - start) * childheight)
             cw = w
             ch = round(childheight)
+            self._children[c]._visible = True
             self._children[c]._box = (cx, cy, cw, ch)
 
     def _show(self, canvas):
@@ -54,12 +61,18 @@ class ListBox(Container):
     def _handle_key(self, key):
         if key == self._keys.get('down', curses.KEY_DOWN):
             self._focused_child += 1
-            if self._focused_child > self._scroll + self._visible_entries:
-                self._scroll += 1
-            return
-        if key == self._keys.get('up', curses.KEY_UP):
+            if self._focused_child >= len(self._children):
+                index = self._focused_child = len(self._children) - 1
+            key = None
+        elif key == self._keys.get('up', curses.KEY_UP):
             self._focused_child -= 1
-            if self._focused_child < self._scroll + self._visible_entries:
-                self._scroll -= 1
-            return
+            if self._focused_child < 0:
+                self._focused_child = 0
+            key = None
+        if self._focused_child - self._scroll >= self._visible_entries:
+            self._scroll += self._visible_entries
+            self.pack()
+        elif self._focused_child - self._scroll < 0:
+            self._scroll -= self._visible_entries
+            self.pack()
         return key

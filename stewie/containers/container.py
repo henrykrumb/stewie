@@ -10,6 +10,17 @@ class Container(Widget):
         self._children = []
         self._style = ContainerStyle()
 
+    def get_child(self, address, recursive=True):
+        for child in self._children:
+            if child._address == address:
+                return child
+            if recursive:
+                if hasattr(child, 'get_child'):
+                    c = child.get_child(address, recursive)
+                    if c is not None:
+                        return c
+        return None
+
     def _add_child(self, widget):
         return True
 

@@ -1,7 +1,3 @@
-import argparse
-import json
-import logging
-
 from stewie.application import Application
 
 

@@ -1,5 +1,6 @@
-from .vbox import demo_vbox
+from .main import main
+
 
 __all__ = [
-    'demo_vbox'
+    'main'
 ]

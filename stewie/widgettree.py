@@ -31,7 +31,7 @@ def _walk_children(node, nodewidget):
 
 def build_widget_tree(parent: Container, widgets: dict):
     """
-    :param parent: the tree is added to the parent Container
+    :param parent: parent Container to which the widgets are added as children
     :param widgets: dictionary representing the widget tree
     """
     root = widgets
@@ -39,6 +39,9 @@ def build_widget_tree(parent: Container, widgets: dict):
         roottype = root['type']
     except Exception:
         raise RuntimeError('root widget type has to be defined')
-    rootwidget = name2widget.get(roottype)()
+    options = {
+        k: root[k] for k in root if k not in ('children', 'type')
+    }
+    rootwidget = name2widget.get(roottype)(**options)
     _walk_children(root, rootwidget)
     parent.add_child(rootwidget)
