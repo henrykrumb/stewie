@@ -62,7 +62,7 @@ class ListBox(Container):
         if key == self._keys.get('down', curses.KEY_DOWN):
             self._focused_child += 1
             if self._focused_child >= len(self._children):
-                index = self._focused_child = len(self._children) - 1
+                self._focused_child = len(self._children) - 1
             key = None
         elif key == self._keys.get('up', curses.KEY_UP):
             self._focused_child -= 1

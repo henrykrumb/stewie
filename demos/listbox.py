@@ -2,46 +2,17 @@ from stewie.application import Application
 
 
 def demo_listbox():
+    buttons = []
+    for i in range(7):
+        button = {
+            'type': 'Button',
+            'text': 'BTN ' + str(i),
+            'address': 'BTN_' + str(i)
+        }
+        buttons.append(button)
     widgettree = {
         'type': 'ListBox',
         'visible_entries': 5,
-        'children': [
-            {
-                'type': 'Button',
-                'text': 'BTN 1'
-            },
-            {
-                'type': 'Button',
-                'text': 'BTN 2'
-            },
-            {
-                'type': 'Button',
-                'text': 'BTN 3'
-            },
-            {
-                'type': 'Button',
-                'text': 'BTN 4'
-            },
-            {
-                'type': 'Button',
-                'text': 'BTN 5'
-            },
-            {
-                'type': 'Button',
-                'text': 'BTN 6'
-            },
-            {
-                'type': 'Button',
-                'text': 'BTN 7'
-            },
-            {
-                'type': 'Button',
-                'text': 'BTN 8'
-            },
-            {
-                'type': 'Button',
-                'text': 'BTN 9'
-            }
-        ]
+        'children': buttons
     }
     Application(widgettree).run()

@@ -18,8 +18,8 @@ def demo_vbox():
                 'text': 'Foo'
             },
             {
-                'type': 'Button',
-                'text': 'Bar'
+                'type': 'OptionBox',
+                'options': ['foo', 'bar', 'baz']
             },
             {
                 'type': 'ProgressBar',
