@@ -30,5 +30,8 @@ def demo_vbox():
         ]
     }
     app = Application(widgettree)
-    
+    def button_activate(event):
+        label = app.frame.get_child('label')
+        label.set_text(event.source)
+    app.register_callback('activate', button_activate)
     app.run()
