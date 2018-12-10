@@ -12,7 +12,7 @@ class Container(Widget):
 
     def get_child(self, address, recursive=True):
         for child in self._children:
-            if child._address == address:
+            if child.address == address:
                 return child
             if recursive:
                 if hasattr(child, 'get_child'):
@@ -38,7 +38,7 @@ class Container(Widget):
     def remove_child(self, widget):
         status = False
         for child in self._children:
-            if child._address == widget._address:
+            if child.address == widget.address:
                 if self._remove_child(child):
                     self._children.remove(child)
                     status = True

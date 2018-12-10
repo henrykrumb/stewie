@@ -6,20 +6,20 @@ def demo_vbox():
         'type': 'VBox',
         'children': [
             {
-                'type': 'Button',
-                'text': 'Hello'
+                'type': 'Label',
+                'text': ''
             },
             {
                 'type': 'Button',
-                'text': 'World'
+                'text': 'button'
             },
             {
-                'type': 'Button',
-                'text': 'Foo'
+                'type': 'OptionBox',
+                'options': ['foo', 'bar', 'baz']
             },
             {
-                'type': 'Button',
-                'text': 'Bar'
+                'type': 'CheckBox',
+                'text': 'boolean'
             },
             {
                 'type': 'ProgressBar',
@@ -27,4 +27,16 @@ def demo_vbox():
             }
         ]
     }
-    Application(widgettree).run()
+    app = Application(widgettree)
+    def activate(event):
+        label = app.frame.get_child('Label:1')
+        source = app.frame.get_child(event.source)
+        label.set_text(event.source)
+        if event.source == 'Button:1':
+            label.set_text('button pressed')
+        elif event.source == 'OptionBox:1':
+            label.set_text('optionbox activated: ' + source.get_option())
+        elif event.source == 'CheckBox:1':
+            label.set_text('checkbox toggled: ' + str(source._state))
+    app.register_callback('activate', activate)
+    app.run()

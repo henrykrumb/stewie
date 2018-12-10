@@ -6,13 +6,14 @@ import sys
 
 from .canvas import Canvas
 from .containers import Frame
-from .events import dispatch_events
+from .events import dispatch_events, EventNode
 from .keyboard import curses_keycode
 from .widgettree import build_widget_tree
 
 
-class Application:
+class Application(EventNode):
     def __init__(self, widgets: dict):
+        super().__init__(None, 'application')
         signal.signal(signal.SIGINT, self._exit_signal_handler)
         signal.signal(signal.SIGTERM, self._exit_signal_handler)
 

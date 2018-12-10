@@ -29,14 +29,14 @@ class ListBox(Container):
             end = len(self._children)
         if not self._children:
             return
-        childheight = h / self._visible_entries
+        childheight = int(h / self._visible_entries)
         for child in self._children:
             child._visible = False
         for c in range(start, end):
             cx = x
-            cy = round((c - start) * childheight)
+            cy = int((c - start) * childheight)
             cw = w
-            ch = round(childheight)
+            ch = int(childheight)
             self._children[c]._visible = True
             self._children[c]._box = (cx, cy, cw, ch)
 
@@ -62,7 +62,7 @@ class ListBox(Container):
         if key == self._keys.get('down', curses.KEY_DOWN):
             self._focused_child += 1
             if self._focused_child >= len(self._children):
-                index = self._focused_child = len(self._children) - 1
+                self._focused_child = len(self._children) - 1
             key = None
         elif key == self._keys.get('up', curses.KEY_UP):
             self._focused_child -= 1

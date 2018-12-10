@@ -2,7 +2,9 @@ from .containers import *
 from .widgets import *
 
 
+# TODO automatically associate widget classes with their names
 name2widget = {
+    'CheckBox': CheckBox,
     'Frame': Frame,
     'HBox': HBox,
     'ListBox': ListBox,

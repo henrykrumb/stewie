@@ -1,4 +1,5 @@
 from .widget import Widget
+from ..utils import strsize
 
 
 class OptionBox(Widget):
@@ -13,21 +14,34 @@ class OptionBox(Widget):
             'next': ord('+')
         }
 
+    def get_option(self):
+        return self._options[self._ptr]
+
     def _show(self, canvas):
         x, y, w, h = self._box
-        option = '- ' + self._options[self._ptr] + ' +'
-        canvas.draw_text(option, (x, y))
+        if self._focused:
+            canvas.draw_frame(self._box, thick=True)
+        else:
+            canvas.draw_frame(self._box, thick=False, dashed=True)
+        if self._options:
+            option = self._options[self._ptr]
+            textw, texth = strsize(option)
+            textx = int((w - textw) / 2)
+            texty = int((h - texth) / 2)
+            canvas.draw_text(option, (x + textx, y + texty))
 
     def _handle_key(self, key):
         if key == self._keys.get('previous', ord('-')):
             if self._ptr - 1 >= 0:
                 self._ptr -= 1
+                self.send_event('change', data=self._options[self._ptr])
             return
         elif key == self._keys.get('next', ord('+')):
             if self._ptr + 1 < len(self._options):
                 self._ptr += 1
+                self.send_event('change', data=self._options[self._ptr])
             return
         elif key == self._keys.get('activate', ord(' ')):
-            self.send_event('optionbox_activate')
+            self.send_event('activate')
             return
         return key

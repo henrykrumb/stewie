@@ -7,6 +7,10 @@ class Label(Widget):
         super().__init__(parent, address)
         self._text = text
 
+    def set_text(self, text):
+        self._text = text
+        self.pack()
+
     def _show(self, canvas):
         x, y, w, h = self._box
         if self._text:
