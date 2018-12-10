@@ -29,12 +29,14 @@ class OptionBox(Widget):
         if key == self._keys.get('previous', ord('-')):
             if self._ptr - 1 >= 0:
                 self._ptr -= 1
+                self.send_event('change', data=self._options[self._ptr])
             return
         elif key == self._keys.get('next', ord('+')):
             if self._ptr + 1 < len(self._options):
                 self._ptr += 1
+                self.send_event('change', data=self._options[self._ptr])
             return
         elif key == self._keys.get('activate', ord(' ')):
-            self.send_event('optionbox_activate')
+            self.send_event('activate')
             return
         return key

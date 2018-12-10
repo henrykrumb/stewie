@@ -22,6 +22,10 @@ def demo_vbox():
                 'options': ['foo', 'bar', 'baz']
             },
             {
+                'type': 'CheckBox',
+                'text': 'boolean'
+            },
+            {
                 'type': 'ProgressBar',
                 'progress': 0.15
             }
