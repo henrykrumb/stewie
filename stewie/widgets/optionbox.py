@@ -14,6 +14,9 @@ class OptionBox(Widget):
             'next': ord('+')
         }
 
+    def get_option(self):
+        return self._options[self._ptr]
+
     def _show(self, canvas):
         x, y, w, h = self._box
         if self._focused:
