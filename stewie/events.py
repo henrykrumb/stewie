@@ -1,4 +1,6 @@
+from dataclasses import dataclass
 from queue import Queue
+from typing import Any, Optional
 
 
 _callbacks = {}
@@ -43,31 +45,12 @@ def dispatch_events():
                         callback(event)
 
 
+@dataclass(frozen=True)
 class Event:
-    """
-    Events can be imagined as packages which contain data in any form.
-
-    :param event_type: identification string
-    :param data: any kind of payload data
-    :param source: event origin
-    :param sink: event destination
-    """
-    def __init__(self, event_type, data=None, source=None, sink=None):
-        self.type = event_type
-        self.data = data
-        self.source = source
-        self.sink = sink
-
-    def __str__(self):
-        s = '<Event type=' + self.type
-        if self.source:
-            s += ' src=' + self.source
-        if self.data:
-            s += ' data=' + self.data
-        if self.sink:
-            s += ' sink=' + self.sink
-        s += '>'
-        return s
+    type: str
+    data: Optional[Any]
+    source: Optional[str]
+    sink: Optional[str]
 
 
 class EventNode:
