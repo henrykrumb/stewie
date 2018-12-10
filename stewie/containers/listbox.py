@@ -29,14 +29,14 @@ class ListBox(Container):
             end = len(self._children)
         if not self._children:
             return
-        childheight = h / self._visible_entries
+        childheight = int(h / self._visible_entries)
         for child in self._children:
             child._visible = False
         for c in range(start, end):
             cx = x
-            cy = round((c - start) * childheight)
+            cy = int((c - start) * childheight)
             cw = w
-            ch = round(childheight)
+            ch = int(childheight)
             self._children[c]._visible = True
             self._children[c]._box = (cx, cy, cw, ch)
 
