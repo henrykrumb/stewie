@@ -20,7 +20,9 @@ class OptionBox(Widget):
     def _show(self, canvas):
         x, y, w, h = self._box
         if self._focused:
-            canvas.draw_frame(self._box)
+            canvas.draw_frame(self._box, thick=True)
+        else:
+            canvas.draw_frame(self._box, thick=False, dashed=True)
         if self._options:
             option = self._options[self._ptr]
             textw, texth = strsize(option)

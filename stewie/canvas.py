@@ -20,35 +20,61 @@ class Canvas:
         except Exception:
             pass
 
-    def draw_frame(self, frame: tuple, style=None):
+    def draw_frame(self, frame: tuple, style=None, thick=False, dashed=False):
         """
         Draw a rectangular frame.
 
         :param frame: tuple of (x, y, width, height)
         """
         # TODO move definitions to separate module
+        # TODO make unicode configurable or better: dependent on unicode
+        # support in terminal
         UNICODE = True
         if UNICODE:
-            HLINE = '\u2500'
-            VLINE = '\u2502'
-            ULCORNER = '\u250C'
-            URCORNER = '\u2510'
-            LLCORNER = '\u2514'
-            LRCORNER = '\u2518'
+            if thick:
+                VLINE = '\u2588'
+                UHLINE = '\u2580'
+                LHLINE = '\u2584'
+                ULCORNER = '\u2588'
+                URCORNER = '\u2588'
+                LLCORNER = '\u2588'
+                LRCORNER = '\u2588'
+            else:
+                VLINE = '\u2502'
+                UHLINE = '\u2500'
+                LHLINE = '\u2500'
+                ULCORNER = '\u250C'
+                URCORNER = '\u2510'
+                LLCORNER = '\u2514'
+                LRCORNER = '\u2518'
         else:
-            HLINE = '#'
-            VLINE = '#'
-            ULCORNER = '#'
-            URCORNER = '#'
-            LLCORNER = '#'
-            LRCORNER = '#'
+            if thick:
+                VLINE = '#'
+                UHLINE = '#'
+                LHLINE = '#'
+                ULCORNER = '#'
+                URCORNER = '#'
+                LLCORNER = '#'
+                LRCORNER = '#'
+            else:
+                VLINE = '|'
+                UHLINE = '-'
+                LHLINE = '_'
+                ULCORNER = '.'
+                URCORNER = '.'
+                LLCORNER = '|'
+                LRCORNER = '|'
         x, y, w, h = frame
         for by in range(1, h - 1):
+            if dashed and by % 2 == 1:
+                continue
             self.draw_char(VLINE, (x, y + by))
             self.draw_char(VLINE, (x + w - 1, y + by))
         for bx in range(1, w - 1):
-            self.draw_char(HLINE, (x + bx, y))
-            self.draw_char(HLINE, (x + bx, y + h - 1))
+            if dashed and bx % 2 == 1:
+                continue
+            self.draw_char(UHLINE, (x + bx, y))
+            self.draw_char(LHLINE, (x + bx, y + h - 1))
         self.draw_char(ULCORNER, (x, y))
         self.draw_char(URCORNER, (x + w - 1, y))
         self.draw_char(LLCORNER, (x, y + h - 1))
