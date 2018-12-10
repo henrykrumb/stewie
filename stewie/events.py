@@ -91,6 +91,9 @@ class EventNode:
                 if hasattr(func, 'register'):
                     _register_callback(self, func.event_type, func)
 
+    def register_callback(self, event_type, func):
+        _register_callback(self, event_type, func)
+
     def send_event(self, event_type, data=None, sink=None):
         """
         Wrapper method for send_event in event module.

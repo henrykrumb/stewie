@@ -6,16 +6,14 @@ def demo_vbox():
         'type': 'VBox',
         'children': [
             {
-                'type': 'Button',
-                'text': 'Hello'
+                'type': 'Label',
+                'text': '',
+                'address': 'label'
             },
             {
                 'type': 'Button',
-                'text': 'World'
-            },
-            {
-                'type': 'Button',
-                'text': 'Foo'
+                'text': 'button',
+                'address': 'button'
             },
             {
                 'type': 'OptionBox',
@@ -31,4 +29,6 @@ def demo_vbox():
             }
         ]
     }
-    Application(widgettree).run()
+    app = Application(widgettree)
+    
+    app.run()
