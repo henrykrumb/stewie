@@ -1,4 +1,5 @@
 from .widget import Widget
+from ..utils import strsize
 
 
 class ProgressBar(Widget):
@@ -25,5 +26,9 @@ class ProgressBar(Widget):
         # TODO reverse option
         w_fill = int(w * self.progress)
         canvas.draw_box((x, y, w_fill, h))
-        p = '{}%'.format(int(self.progress * 100))
-        canvas.draw_text(p, (x + int(w / 2), y + int(h / 2)))
+        canvas.draw_frame(self._box)
+        ptext = '{}%'.format(int(self.progress * 100))
+        textw, texth = strsize(ptext)
+        textx = int((w - textw) / 2)
+        texty = int((h - texth) / 2)
+        canvas.draw_text(ptext, (x + textx, y + texty))
