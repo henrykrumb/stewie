@@ -59,14 +59,18 @@ class EventNode:
 
     :param address: address string
     """
+    _counter = 0
+
     def __init__(self, parent=None, address=''):
         self.parent = parent
         self.address = address
+        type(self)._counter += 1
         if not address:
             self.address = ''
             if parent:
                 self.address = parent.address + '.'
-            self.address += self.__class__.__name__ + ':' + str(id(self))
+            classname = self.__class__.__name__
+            self.address += '{}:{}'.format(classname, type(self)._counter)
         # register all '@on'-decorated methods
         for member in dir(self):
             if callable(getattr(self, member)):
