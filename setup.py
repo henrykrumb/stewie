@@ -4,6 +4,8 @@
 
 Includes flake8 command support.
 """
+import os
+
 from setuptools import find_packages, setup
 
 from sphinx.setup_command import BuildDoc
@@ -12,8 +14,10 @@ from sphinx.setup_command import BuildDoc
 NAME = 'stewie'
 
 lvars = {}
-with open('{}/__version__.py'.format(NAME)) as f:
-    code = compile(f.read(), '{}/__version__.py'.format(NAME), 'exec')
+PROJECT_DIR = os.path.split(__file__)[0]
+version_py = '{}/{}/__version__.py'.format(PROJECT_DIR, NAME)
+with open(version_py, 'r') as f:
+    code = compile(f.read(), version_py, 'exec')
     exec(code, {}, lvars)
 VERSION = lvars.get('__version__')
 RELEASE = lvars.get('__release__')
