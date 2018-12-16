@@ -64,13 +64,15 @@ class Container(Widget):
         self._pack()
         for c in range(len(self._children)):
             child = self._children[c]
-            child._focused = (c == self._focused_child)
+            child._focused = (self._focused and c == self._focused_child)
             child.pack()
 
     def _show(self, canvas):
         return
 
     def show(self, canvas):
+        if not self._visible:
+            return
         self._show(canvas)
         for child in self._children:
             if child._visible:

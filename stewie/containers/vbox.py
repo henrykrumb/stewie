@@ -18,7 +18,7 @@ class VBox(Container):
         childheight = int(h / len(self._children))
         for c in range(len(self._children)):
             cx = x
-            cy = int(c * childheight)
+            cy = y + int(c * childheight)
             cw = w
             ch = int(childheight)
             self._children[c]._box = (cx, cy, cw, ch)
@@ -43,11 +43,13 @@ class VBox(Container):
             if index >= len(indices):
                 index = 0
             self._focused_child = indices[index]
+            self.pack()
             return
         if key == self._keys.get('up', curses.KEY_UP):
             index -= 1
             if index < 0:
                 index = len(indices) - 1
             self._focused_child = indices[index]
+            self.pack()
             return
         return key

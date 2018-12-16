@@ -1,18 +1,27 @@
 from stewie.application import Application
+from stewie.widgettree import build_widget_tree
 
+
+def make_list_item(parent, i):
+    item = {
+        'type': 'VBox',
+        'children': [
+            {
+                'type': 'OptionBox',
+                'options': ['a', 'b', 'c']
+            }
+        ]
+    }
+    return build_widget_tree(parent, item)
 
 def demo_listbox():
-    buttons = []
-    for i in range(7):
-        button = {
-            'type': 'Button',
-            'text': 'BTN ' + str(i),
-            'address': 'BTN_' + str(i)
-        }
-        buttons.append(button)
     widgettree = {
         'type': 'ListBox',
-        'visible_entries': 5,
-        'children': buttons
+        'address': 'lbox',
+        'visible_entries': 5
     }
-    Application(widgettree).run()
+    
+    app = Application(widgettree)
+    for i in range(10):
+        make_list_item(app.frame.get_child('lbox'), i)
+    app.run()

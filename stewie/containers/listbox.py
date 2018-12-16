@@ -22,16 +22,16 @@ class ListBox(Container):
         return True
 
     def _pack(self):
+        if not self._children:
+            return
         x, y, w, h = self._box
+        childheight = int(h / self._visible_entries)
+        for child in self._children:
+            child._visible = False
         start = self._scroll
         end = start + self._visible_entries
         if end > len(self._children):
             end = len(self._children)
-        if not self._children:
-            return
-        childheight = int(h / self._visible_entries)
-        for child in self._children:
-            child._visible = False
         for c in range(start, end):
             cx = x
             cy = int((c - start) * childheight)
@@ -71,8 +71,8 @@ class ListBox(Container):
             key = None
         if self._focused_child - self._scroll >= self._visible_entries:
             self._scroll += self._visible_entries
-            self.pack()
         elif self._focused_child - self._scroll < 0:
             self._scroll -= self._visible_entries
+        if key is None:
             self.pack()
         return key
