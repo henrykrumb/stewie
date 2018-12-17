@@ -21,6 +21,7 @@ class Application(EventNode):
         try:
             self._canvas = Canvas(self._screen)
             self.frame = Frame((0, 0, curses.COLS, curses.LINES), self)
+            self.frame._focused = True
             build_widget_tree(self.frame, widgets)
         except Exception:
             self.exit()
@@ -39,6 +40,7 @@ class Application(EventNode):
             curses.cbreak()
             curses.curs_set(False)
             self._screen.keypad(True)
+            self._screen.timeout(0)
             height, width = self._screen.getmaxyx()
             quit = False
             while not quit:
@@ -55,7 +57,8 @@ class Application(EventNode):
                 c = self._screen.getch()
                 if c == curses_keycode('q'):
                     quit = True
-                self.frame.handle_key(c)
+                if c != -1:
+                    self.frame.handle_key(c)
                 dispatch_events()
             self.exit()
         except Exception:

@@ -23,12 +23,11 @@ class VBox(Container):
             ch = int(childheight)
             self._children[c]._box = (cx, cy, cw, ch)
         indices = self._get_focusable_child_indices()
-        if self._focused_child in indices:
-            index = indices.index(self._focused_child)
+        if indices:
+            if self._focused_child not in indices:
+                self._focused_child = indices[0]
         else:
-            index = 0
-        if len(indices) > 0:
-            self._focused_child = indices[index]
+            self._focused_child = -1
 
     def _show(self, canvas):
         return

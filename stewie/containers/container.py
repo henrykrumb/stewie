@@ -5,7 +5,7 @@ from ..widgets import Widget
 class Container(Widget):
     def __init__(self, parent=None, address=''):
         super().__init__(parent, address)
-        self._focused_child = 0
+        self._focused_child = -1
         self._focusable = True
         self._children = []
         self._style = ContainerStyle()
@@ -25,6 +25,8 @@ class Container(Widget):
         return True
 
     def add_child(self, widget):
+        if self._focused_child < 0 and widget._focusable:
+            self._focused_child = 0
         if self._add_child(widget):
             widget._parent = self
             self._children.append(widget)
@@ -60,7 +62,12 @@ class Container(Widget):
 
     def pack(self):
         if self._focused_child >= len(self._children):
-            self._focused_child = len(self._children) - 1
+            for c in range(len(self._children) - 1, 0):
+                if self._children[c]._focusable:
+                    self._focused_child = c
+                    break
+            if self._focused_child >= len(self._children):
+                self._focused_child = -1
         self._pack()
         for c in range(len(self._children)):
             child = self._children[c]

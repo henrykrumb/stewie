@@ -7,6 +7,10 @@ def make_list_item(parent, i):
         'type': 'VBox',
         'children': [
             {
+                'type': 'Label',
+                'text': 'LBL' + str(i)
+            },
+            {
                 'type': 'OptionBox',
                 'options': ['a', 'b', 'c']
             }
@@ -24,4 +28,5 @@ def demo_listbox():
     app = Application(widgettree)
     for i in range(10):
         make_list_item(app.frame.get_child('lbox'), i)
+    app.frame.pack()
     app.run()
