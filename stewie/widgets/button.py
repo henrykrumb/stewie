@@ -22,6 +22,6 @@ class Button(Widget):
 
     def _handle_key(self, key):
         if key == ord(' '):
-            self.send_event('activate')
+            self.send_event('activate', data=self)
             return
         return key

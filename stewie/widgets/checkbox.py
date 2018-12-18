@@ -27,6 +27,6 @@ class CheckBox(Widget):
     def _handle_key(self, key):
         if key == ord(' '):
             self._state = not self._state
-            self.send_event('activate', data=self._state)
+            self.send_event('activate', data=self)
             return
         return key
