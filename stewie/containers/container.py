@@ -34,13 +34,13 @@ class Container(Widget):
             return True
         return False
 
-    def _remove_child(self, widget):
+    def _remove_child(self, address):
         return True
 
-    def remove_child(self, widget):
+    def remove_child(self, address):
         status = False
         for child in self._children:
-            if child.address == widget.address:
+            if child.address == address:
                 if self._remove_child(child):
                     self._children.remove(child)
                     status = True
