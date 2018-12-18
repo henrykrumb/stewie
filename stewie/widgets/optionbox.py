@@ -19,16 +19,20 @@ class OptionBox(Widget):
 
     def _show(self, canvas):
         x, y, w, h = self._box
-        if self._focused:
-            canvas.draw_frame(self._box, thick=True)
-        else:
-            canvas.draw_frame(self._box, thick=False, dashed=True)
+        thick = self._focused
+        canvas.draw_frame(self._box, thick=thick)
         if self._options:
             option = self._options[self._ptr]
             textw, texth = strsize(option)
             textx = int((w - textw) / 2)
             texty = int((h - texth) / 2)
             canvas.draw_text(option, (x + textx, y + texty))
+            if self._ptr > 0:
+                canvas.draw_frame((x, y, 5, h), thick=thick)
+                canvas.draw_text('-', (x + 2, y + texty))
+            if self._ptr < len(self._options) - 1:
+                canvas.draw_frame((x + w - 5, y, 5, h), thick=thick)
+                canvas.draw_text('+', (x + w - 3, y + texty))
 
     def _handle_key(self, key):
         if key == self._keys.get('previous', ord('-')):

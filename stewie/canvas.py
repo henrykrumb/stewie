@@ -80,7 +80,7 @@ class Canvas:
         self.draw_char(LLCORNER, (x, y + h - 1))
         self.draw_char(LRCORNER, (x + w - 1, y + h - 1))
 
-    def draw_box(self, box: tuple, style=None):
+    def draw_box(self, box: tuple, character='\u2588', style=None):
         """
         Draw a rectangular box.
 
@@ -88,7 +88,24 @@ class Canvas:
         """
         x, y, w, h = box
         UNICODE = True
-        BOX = '\u2588' if UNICODE else '#'
+        BOX = character if UNICODE else '#'
         for by in range(h):
             for bx in range(w):
                 self.draw_char(BOX, (x + bx, y + by))
+
+    def draw_scrollbar(self, box: tuple, page: int, pages: int):
+        x, y, w, h = box
+        UNICODE = True
+        if UNICODE:
+            ARROW_UP = '\u25B2'
+            ARROW_DOWN = '\u25BC'
+            HANDLE = '\u2591'
+        else:
+            ARROW_UP = '^'
+            ARROW_DOWN = 'v'
+            HANDLE = '#'
+        handle_h = int((h - 2) / pages)
+        handle_y = y + 1 + int(page * handle_h)
+        self.draw_box((x, handle_y, w, handle_h), HANDLE)
+        self.draw_char(ARROW_UP, (x, y))
+        self.draw_char(ARROW_DOWN, (x, y + h - 1))
