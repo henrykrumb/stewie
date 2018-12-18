@@ -1,5 +1,7 @@
 import curses
 
+import math
+
 from .container import Container
 
 
@@ -8,6 +10,7 @@ class ListBox(Container):
         super().__init__(parent, address)
         self._visible_entries = visible_entries
         self._scroll = 0
+        self._scrollbar_width = 1
         self._keys = {
             'up': curses.KEY_UP,
             'down': curses.KEY_DOWN
@@ -35,13 +38,17 @@ class ListBox(Container):
         for c in range(start, end):
             cx = x
             cy = int((c - start) * childheight)
-            cw = w
+            cw = w - self._scrollbar_width - 1
             ch = int(childheight)
             self._children[c]._visible = True
             self._children[c]._box = (cx, cy, cw, ch)
 
     def _show(self, canvas):
-        return
+        x, y, w, h = self._box
+        page = int(self._scroll / self._visible_entries)
+        pages = math.ceil(len(self._children) / self._visible_entries)
+        box = (x + w - self._scrollbar_width, y, self._scrollbar_width, h)
+        canvas.draw_scrollbar(box, page, pages)
 
     def show(self, canvas):
         """

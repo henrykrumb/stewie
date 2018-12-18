@@ -12,7 +12,7 @@ def make_list_item(parent, i):
             },
             {
                 'type': 'OptionBox',
-                'options': ['a', 'b', 'c']
+                'options': ['first option', 'second option', 'third option']
             }
         ]
     }
@@ -22,7 +22,7 @@ def demo_listbox():
     widgettree = {
         'type': 'ListBox',
         'address': 'lbox',
-        'visible_entries': 5
+        'visible_entries': 4
     }
     
     app = Application(widgettree)
