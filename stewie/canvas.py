@@ -104,7 +104,7 @@ class Canvas:
             ARROW_UP = '^'
             ARROW_DOWN = 'v'
             HANDLE = '#'
-        handle_h = int((h - 2) / pages)
+        handle_h = int(h / pages)
         handle_y = y + 1 + int(page * handle_h)
         self.draw_box((x, handle_y, w, handle_h), HANDLE)
         self.draw_char(ARROW_UP, (x, y))
