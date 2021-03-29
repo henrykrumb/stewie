@@ -12,7 +12,7 @@ mccabe==0.6.1
 packaging==18.0
 pycodestyle==2.4.0
 pyflakes==2.0.0
-Pygments==2.3.0
+Pygments==2.7.4
 pyparsing==2.3.0
 pytz==2018.7
 requests==2.20.1
